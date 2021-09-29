@@ -28,10 +28,12 @@ def get_files(args):
         md = Path(args.input)
     if args.csl is None:
         csl = list(bib_directory.glob("*.csl"))[0].name
+        csl = bib_directory / csl
     else:
         csl = Path(args.csl)
     if args.bib is None:
         bib = list(bib_directory.glob("*.bib"))[0].name
+        bib = bib_directory / bib
     else:
         bib = Path(args.bib)
     return Files(md, csl, bib)
