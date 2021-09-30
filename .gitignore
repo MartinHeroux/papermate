@@ -1,1 +1,4 @@
 .idea/
+venv/
+papermate.egg-info/
+
