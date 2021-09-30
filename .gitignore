@@ -1,4 +1,5 @@
 .idea/
 venv/
 papermate.egg-info/
+__pycache__/
 
