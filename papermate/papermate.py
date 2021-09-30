@@ -12,12 +12,75 @@ class Files:
     bib: Path
 
 
-def main(args):
+def main():
+    args = parse_command_line()
     files = get_files(args)
     format = get_format(args)
     tags = args.tags
     make_paper(files, format, tags)
 
+def parse_command_line():
+    USAGE = """Papermate v0.1
+
+    Created by Martin Héroux (heroux.martin at gmail.com)
+
+    Render paper written in Markdown to either PDF, DOCX or TEX.
+
+    Can output difference of two versions of the paper to PDF
+    based on their git tags.
+
+    To tag your current version in git, use the following command:
+    $ git tag -a v1 -m 'First draft'
+    Adjust version number and message as needed.
+
+    To tag an earlier version, use the following command:
+    $ git tag -a v2 <commit checksum>
+    Where 'commit checksum' is the entire (or first part of)
+    the commit checksum. This can be obtained using:
+
+    $ git log --pretty=oneline
+
+    USAGE:
+                """
+    parser = ArgumentParser(description=USAGE, formatter_class=RawFormatter)
+    parser.add_argument(
+        "--input",
+        type=str,
+        default=None,
+        help="Markdown file containing paper (e.g. paper.md)",
+    )
+    parser.add_argument(
+        "--csl",
+        type=str,
+        default=None,
+        help="csl style file to format bibliography (e.g. APA.csl)",
+    )
+    parser.add_argument(
+        "--bib",
+        type=str,
+        default=None,
+        help=".bib file containing references (e.g. refs.bib)",
+    )
+    parser.add_argument(
+        "-t",
+        "--tex",
+        action="store_true",
+        help="Output .tex verion of paper",
+    )
+    parser.add_argument(
+        "-d",
+        "--docx",
+        action="store_true",
+        help="Output .docx verion of paper",
+    )
+    parser.add_argument(
+        "--tags",
+        nargs="+",
+        default=None,
+        help="Pair of git tags used to generate PDF diff document",
+    )
+    args = parser.parse_args()
+    return args
 
 def get_files(args):
     """Get .md, .csl and .bib files"""
@@ -126,64 +189,5 @@ class RawFormatter(HelpFormatter):
 
 
 if __name__ == "__main__":
-    USAGE = """Papermate v0.1
+    main()
 
-    Created by Martin Héroux (heroux.martin at gmail.com)
-
-    Render paper written in Markdown to either PDF, DOCX or TEX.
-
-    Can output difference of two versions of the paper to PDF
-    based on their git tags.
-
-    To tag your current version in git, use the following command:
-    $ git tag -a v1 -m 'First draft'
-    Adjust version number and message as needed.
-
-    To tag an earlier version, use the following command:
-    $ git tag -a v2 <commit checksum>
-    Where 'commit checksum' is the entire (or first part of)
-    the commit checksum. This can be obtained using:
-
-    $ git log --pretty=oneline
-
-    USAGE:
-                """
-    parser = ArgumentParser(description=USAGE, formatter_class=RawFormatter)
-    parser.add_argument(
-        "--input",
-        type=str,
-        default=None,
-        help="Markdown file containing paper (e.g. paper.md)",
-    )
-    parser.add_argument(
-        "--csl",
-        type=str,
-        default=None,
-        help="csl style file to format bibliography (e.g. APA.csl)",
-    )
-    parser.add_argument(
-        "--bib",
-        type=str,
-        default=None,
-        help=".bib file containing references (e.g. refs.bib)",
-    )
-    parser.add_argument(
-        "-t",
-        "--tex",
-        action="store_true",
-        help="Output .tex verion of paper",
-    )
-    parser.add_argument(
-        "-d",
-        "--docx",
-        action="store_true",
-        help="Output .docx verion of paper",
-    )
-    parser.add_argument(
-        "--tags",
-        nargs="+",
-        default=None,
-        help="Pair of git tags used to generate PDF diff document",
-    )
-    args = parser.parse_args()
-    main(args)
