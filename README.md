@@ -8,7 +8,7 @@ This package was first introduced as a blog post on [scientificallysound.org][bl
 While `papermate` does not have any Python dependencies, it does require some external dependencies.
 
 - *pandoc*: Required
-- *LaTeX*: Required for PDF output; [TexLive][tex] can be download for all operating systems
+- *LaTeX*: Required for PDF output; [TexLive][tex] can be downloaded for all operating systems
 - *git*: Required if want to render previous versions of document, or to render marked-up PDF showing difference between two version of document
 
 ## Installation
@@ -26,7 +26,7 @@ $ source venv/bin/activate
 (venv)$
 ```
 
-Making sure you are in the top-most `papermate` directory (i.e. the one that contains `setup.py`, run the following command to install `papermate`:
+Making sure you are in the top-most `papermate` directory (i.e. the one that contains `setup.py`), run the following command to install `papermate`:
 
 ```bash
 $ pip install .
@@ -98,7 +98,7 @@ bib/  header.yaml  img/  paper.md  paper.pdf  tex/
 
 We can see that a new PDF document has been created. When no arguments are provided, papermate will look for a Markdown file in the current directory, and Citation Style Language and BibTeX reference files in a `bib` directory.
 
-The more expliciate way to achieve the same results would be to run:
+The more explicit way to achieve the same results would be to run:
 
 ```bash
 $ papermate --input paper.md --csl bib/vancouver-author-date.csl --bib bib/refs.bib
