@@ -7,7 +7,7 @@ This package was first introduced as a blog post on [scientificallysound.org][bl
 
 While `papermate` does not have any Python dependencies, it does require some external dependencies.
 
-- *pandoc*: Required
+- *pandoc*: Required v>2.11. Install from [installation page][pandoc]
 - *LaTeX*: Required for PDF output; [TexLive][tex] can be downloaded for all operating systems
 - *git*: Required if want to render previous versions of document, or to render marked-up PDF showing difference between two version of document
 
@@ -111,4 +111,5 @@ Additional documentation will be added in the future. For now, please refer to t
 
 [blog]: https://scientificallysound.org/2021/10/05/papermate-a-tool-for-academic-writers/
 [tex]: https://tug.org/texlive/
+[pandoc]: https://pandoc.org/installing.html
 
