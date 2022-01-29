@@ -233,6 +233,19 @@ Therefore, I opted to bypass `maketitle` completely. This allows for great flexi
 
 Tables can be found at the end of the manuscript, and they are rather easy to prepare, especially if you use Pandoc-style tables (see `manuscript.md` for example of how to prepare tables). To add a table caption, simply allow for one empty line and start the caption with 'Table: '; this will be recognised by Pandoc as a table caption and will be properly formatted in LaTeX. To ensure LaTeX produces the table in the expected location, use `\clearpage` between each new table you add.
 
+Markdown/Pandoc does not support multirow tables. This means that tables formatted in Markdown will render to PDF but not to Word. This presents a problem for journals that require an editable Word doc on (final) submission. There are a few options to build tables in `papermate` to eventually render to Word. In short, generating tables in LaTeX code as the first step is the most reliable way to ensure render to PDF and Word. Some options are:
+
+* Obtain a CSV/spreadsheet of the data -> paste in [LaTeX table generator](https://www.tablesgenerator.com/) and format the table -> generate LaTeX code of the table
+* Program data into a Python Pandas dataframe and format the table -> export dataframe to TEX, which generates LaTeX code of the table 
+
+By pasting the LateX table code into the Markdown file, `papermate` will render the table to PDF. 
+
+To render tables in Word, save the LaTeX table code in a TEX file (e.g. tables.tex), then convert the TEX file to DOCX:
+
+    pandoc tables.tex -f latex -t docx -o tables.docx
+
+This creates a separate Word doc of the tables only that can be appended to the main manuscript Word doc rendered by `papermate`.
+
 ## Figures
 
 Figure are also found at the end of the manuscript and they too are easy to add to the manuscript.
@@ -323,6 +336,35 @@ The present work was supported by the two gold coins I found the other day when 
 
 # Author Contributions
 Authors agree to attest that they have contributed sufficiently to be listed as an author.
+
+\clearpage
+
+Table I. Simple LaTeX table
+
+\begin{table}[h]
+\begin{tabular}{lcc}
+\hline
+& mean (SD) & 95\% CI  \\ \hline
+outcome 1 & 18        & 16 to 20 \\
+outcome 2 & 61        & 58 to 63 \\
+outcome 3 & 32        & 29 to 35 \\ \hline
+\end{tabular}
+\end{table}
+
+\clearpage
+
+Table II. Fancy LaTeX table
+
+\begin{table}[h]
+\begin{tabular}{lccccc}
+\hline
+\multicolumn{1}{c}{\multirow{2}{*}{trial}} & \multirow{2}{*}{outcome} & \multicolumn{2}{c}{variable 1} & \multicolumn{2}{c}{variable 2} \\ \cline{3-6}
+\multicolumn{1}{c}{}                       &                          & condition 1    & condition 2   & condition 1    & condition 2   \\ \hline
+01                                         & 1.1                      & 6.4            & 11.3          & 0.4            & 0.6           \\
+02                                         & 4.3                      & 12.4           & 13.6          & 1.2            & 0.8           \\
+03                                         & 9.7                      & 15.8           & 15.3          & 1.5            & 1.2           \\ \hline
+\end{tabular}
+\end{table}
 
 \clearpage
 
